@@ -7,6 +7,7 @@ package ventanas;
 
 import g2ejercicio04.Categoria;
 import g2ejercicio04.Producto;
+import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Alesio
  */
 public class ConsultasXRubro extends javax.swing.JInternalFrame {
-
+    
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
@@ -27,9 +28,9 @@ public class ConsultasXRubro extends javax.swing.JInternalFrame {
      */
     public ConsultasXRubro() {
         initComponents();
-        cargaCombo();
+        //cargaCombo();
         armarCabecera();
-        aperturaVentana();
+        //aperturaVentana();
     }
 
     /**
@@ -69,6 +70,13 @@ public class ConsultasXRubro extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel4.setText("Elija rublo:");
 
+        jcRublo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "COMESTIBLE", "LIMPIEZA", "PERFUMERIA" }));
+        jcRublo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcRubloActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,6 +105,23 @@ public class ConsultasXRubro extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jcRubloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcRubloActionPerformed
+        // TODO add your handling code here:
+         borrarFilas();
+        String selected = jcRublo.getSelectedItem().toString();
+        for (Producto prod : MenuGeneral.listaProductos) {
+            if (prod.getRubro().toString().equalsIgnoreCase(selected)) {
+
+                modelo.addRow(new Object[]{
+                    prod.getCodigo(),
+                    prod.getDescripcion(),
+                    prod.getPrecio(),
+                    prod.getStock()
+                });
+            }
+        }
+    }//GEN-LAST:event_jcRubloActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -107,9 +132,12 @@ public class ConsultasXRubro extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargaCombo() {
-        jcRublo.addItem(Categoria.COMESTIBLE + "");
-        jcRublo.addItem(Categoria.LIMPIEZA + "");
-        jcRublo.addItem(Categoria.PERFUMERIA + "");
+//        jcRublo.addItem(Categoria.COMESTIBLE + "");
+//        jcRublo.addItem(Categoria.LIMPIEZA + "");
+//        jcRublo.addItem(Categoria.PERFUMERIA + "");
+        jcRublo.addItem(String.valueOf(Categoria.COMESTIBLE));
+        jcRublo.addItem(String.valueOf(Categoria.LIMPIEZA));
+        jcRublo.addItem(String.valueOf(Categoria.PERFUMERIA));
     }
 
     private void armarCabecera() {

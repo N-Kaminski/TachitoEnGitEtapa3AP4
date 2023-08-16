@@ -61,6 +61,11 @@ public class MenuGeneral extends javax.swing.JFrame {
         jMenu1.setText("Administracion");
 
         jmenuAProductos.setText("Productos");
+        jmenuAProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmenuAProductosActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmenuAProductos);
 
         jMenuBar1.add(jMenu1);
@@ -138,6 +143,16 @@ public class MenuGeneral extends javax.swing.JFrame {
         escritorio.moveToFront(cxp);
     }//GEN-LAST:event_jmenuCPrecioActionPerformed
 
+    private void jmenuAProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuAProductosActionPerformed
+        // TODO add your handling code here:
+        escritorio.removeAll();
+        escritorio.repaint();
+        GestionDeProductos gdp = new GestionDeProductos();
+        gdp.setVisible(true);
+        escritorio.add(gdp);
+        escritorio.moveToFront(gdp);
+    }//GEN-LAST:event_jmenuAProductosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,5 +204,7 @@ public class MenuGeneral extends javax.swing.JFrame {
         listaProductos.add(new Producto(15, "Yerbar x 1kg", 250, 50, Categoria.COMESTIBLE));
         listaProductos.add(new Producto(20, "Miel x 1kg", 355.33, 10, Categoria.COMESTIBLE));
         listaProductos.add(new Producto(21, "e x 1kg", 355.33, 10, Categoria.LIMPIEZA));
+        listaProductos.add(new Producto(22, "g x 1kg", 355.33, 10, Categoria.LIMPIEZA));
+        listaProductos.add(new Producto(23, "f x 1kg", 355.33, 10, Categoria.LIMPIEZA));
     }
 }

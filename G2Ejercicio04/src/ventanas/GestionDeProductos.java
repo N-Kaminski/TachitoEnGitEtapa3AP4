@@ -5,6 +5,13 @@
  */
 package ventanas;
 
+import g2ejercicio04.Categoria;
+import g2ejercicio04.Producto;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import static ventanas.MenuGeneral.listaProductos;
+
 /**
  *
  * @author Alesio
@@ -16,6 +23,7 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
      */
     public GestionDeProductos() {
         initComponents();
+        cargaCombo();
     }
 
     /**
@@ -27,21 +35,306 @@ public class GestionDeProductos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jtCodigo = new javax.swing.JTextField();
+        jtDesc = new javax.swing.JTextField();
+        jtPrecio = new javax.swing.JTextField();
+        jcRublo = new javax.swing.JComboBox<>();
+        jtStock = new javax.swing.JTextField();
+        jbBuscar = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
+        jbNuevo = new javax.swing.JButton();
+        jbGuardar = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+
+        setMinimumSize(new java.awt.Dimension(25, 25));
+
+        jLabel1.setText("Codigo:");
+
+        jLabel2.setText("Descripcion:");
+
+        jLabel3.setText("Precio:");
+
+        jLabel4.setText("Rubro:");
+
+        jLabel5.setText("Stock:");
+
+        jbBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ventanas/ImgLupa2.jpg"))); // NOI18N
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
+
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
+        jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
+
+        jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
+
+        jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Gestion de Productos");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                                    .addComponent(jtPrecio)
+                                    .addComponent(jtStock))
+                                .addGap(18, 18, 18)
+                                .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jcRublo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbNuevo)
+                        .addGap(20, 20, 20)
+                        .addComponent(jbGuardar)
+                        .addGap(20, 20, 20)
+                        .addComponent(jbEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                        .addComponent(jbSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jcRublo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbSalir)
+                    .addComponent(jbNuevo)
+                    .addComponent(jbGuardar)
+                    .addComponent(jbEliminar)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        try {
+            int codigo = Integer.parseInt(jtCodigo.getText());
+            String desc = jtDesc.getText();
+            double precio = Double.parseDouble(jtPrecio.getText());
+            int stock = Integer.parseInt(jtStock.getText());
+            boolean auxBool = true;
+            for (Producto prod : MenuGeneral.listaProductos) {
+                if (prod.getCodigo() == codigo) {
+                    auxBool = false;
+                }
+            }
+            if (auxBool) {
+                switch (jcRublo.getSelectedIndex()) {
+                    case 0:
+                        MenuGeneral.listaProductos.add(new Producto(codigo, desc, precio, stock, Categoria.COMESTIBLE));
+                        JOptionPane.showMessageDialog(this, "Producto agregado satisfactoriamente");
+                        break;
+                    case 1:
+                        MenuGeneral.listaProductos.add(new Producto(codigo, desc, precio, stock, Categoria.LIMPIEZA));
+                        JOptionPane.showMessageDialog(this, "Producto agregado satisfactoriamente");
+                        break;
+                    case 2:
+                        MenuGeneral.listaProductos.add(new Producto(codigo, desc, precio, stock, Categoria.PERFUMERIA));
+                        JOptionPane.showMessageDialog(this, "Producto agregado satisfactoriamente");
+                        break;
+                }
+                jtCodigo.setText("");
+                jtDesc.setText("");
+                jtPrecio.setText("");
+                jtStock.setText("");
+                jcRublo.setSelectedIndex(0);
+            } else {
+                JOptionPane.showMessageDialog(this, "El codigo ingresado ya esta en uso");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Solo puede ingresar numeros");
+        }
+
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        //sale un error al eliminar un objeto
+        try {
+            int codigo = Integer.parseInt(jtCodigo.getText());
+            for (Producto prod : MenuGeneral.listaProductos) {
+                // LINEA 199 TIRA ERRO CONSULTAR, solucionado en 209
+                if (codigo == prod.getCodigo()) {
+                    MenuGeneral.listaProductos.remove(prod);
+                }
+                jtCodigo.setText("");
+                jtDesc.setText("");
+                jtPrecio.setText("");
+                jtStock.setText("");
+                jcRublo.setSelectedIndex(0);
+            }
+        } catch (NumberFormatException t) {
+            JOptionPane.showMessageDialog(this, "Solo puede ingresar numeros");
+        } catch (ConcurrentModificationException objE) {
+            JOptionPane.showMessageDialog(this, "Eliminado correctamente");
+        }
+
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        try {
+            int codigo = Integer.parseInt(jtCodigo.getText());
+            double precio = Double.parseDouble(jtPrecio.getText());
+            int stock = Integer.parseInt(jtStock.getText());
+            for (Producto prod : MenuGeneral.listaProductos) {
+                if (codigo == prod.getCodigo()) {
+                    prod.setDescripcion(jtDesc.getText());
+                    prod.setPrecio(precio);
+                    prod.setStock(stock);
+                    switch (jcRublo.getSelectedIndex()) {
+                        case 0:
+                            prod.setRubro(Categoria.COMESTIBLE);
+                            break;
+                        case 1:
+                            prod.setRubro(Categoria.LIMPIEZA);
+                            break;
+                        default:
+                            prod.setRubro(Categoria.PERFUMERIA);
+                            break;
+                    }
+                    jtCodigo.setText("");
+                    jtDesc.setText("");
+                    jtPrecio.setText("");
+                    jtStock.setText("");
+                    jcRublo.setSelectedIndex(0);
+                    break;
+                }
+            }
+        } catch (NumberFormatException t) {
+            JOptionPane.showMessageDialog(this, "Solo puede ingresar numeros");
+        }
+
+
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        try {
+            int codigo = Integer.parseInt(jtCodigo.getText());
+            for (Producto prod : MenuGeneral.listaProductos) {
+                if (codigo == prod.getCodigo()) {
+                    jtDesc.setText(prod.getDescripcion());
+                    jtPrecio.setText(String.valueOf(prod.getPrecio()));
+                    int aux;
+                    switch (prod.getRubro()) {
+                        case COMESTIBLE:
+                            aux = 0;
+                            break;
+                        case LIMPIEZA:
+                            aux = 1;
+                            break;
+                        default:
+                            aux = 2;
+                            break;
+                    }
+                    jcRublo.setSelectedIndex(aux);
+                    jtStock.setText(String.valueOf(prod.getStock()));
+                }
+            }
+        } catch (NumberFormatException t) {
+            JOptionPane.showMessageDialog(this, "Solo puede ingresar numeros");
+        }
+    }//GEN-LAST:event_jbBuscarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JButton jbBuscar;
+    private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbGuardar;
+    private javax.swing.JButton jbNuevo;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JComboBox<String> jcRublo;
+    private javax.swing.JTextField jtCodigo;
+    private javax.swing.JTextField jtDesc;
+    private javax.swing.JTextField jtPrecio;
+    private javax.swing.JTextField jtStock;
     // End of variables declaration//GEN-END:variables
+
+    private void cargaCombo() {
+//        jcRublo.addItem(Categoria.COMESTIBLE + "");
+//        jcRublo.addItem(Categoria.LIMPIEZA + "");
+//        jcRublo.addItem(Categoria.PERFUMERIA + "");
+        jcRublo.addItem(String.valueOf(Categoria.COMESTIBLE));
+        jcRublo.addItem(String.valueOf(Categoria.LIMPIEZA));
+        jcRublo.addItem(String.valueOf(Categoria.PERFUMERIA));
+    }
 }
